@@ -10,10 +10,16 @@ public class Main {
     public static void main(String[] args) throws IOException {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+
         List<String> acceptStates;
 
         BufferedReader reader = new BufferedReader(new FileReader("/home/elijahmari/IdeaProjects/DFA/src/DFAFile"));
-        System.out.println(reader);
+        String line;
+        while((line = reader.readLine()) != null){
+            System.out.println(line);
+
+        }
+
+
     }
 }
