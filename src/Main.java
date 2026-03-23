@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,11 +24,17 @@ public class Main {
         }
         System.out.println(readingFromFile.get(1));
         numberOfStates = readingFromFile.get(0);
-        acceptStates.add(readingFromFile.get(1));
+        String acception = readingFromFile.get(1);
+        String [] arr = acception.split(" ");
+        acceptStates.addAll(Arrays.asList(arr));
+        System.out.println(acceptStates.get(0));
+
 
         for(int i = 0; i < Integer.parseInt(numberOfStates); i++){
-            
+            //make the States objects
         }
+
+        //another for loop for adding the transitions
 
 
 
