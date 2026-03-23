@@ -15,6 +15,8 @@ public class Main {
 
         List<String> readingFromFile = new ArrayList<>();
         List<String> acceptStates = new ArrayList<>();
+        List<States> statesWTransitions = new ArrayList<>();
+
         String numberOfStates;
         BufferedReader reader = new BufferedReader(new FileReader("/home/elijahmari/IdeaProjects/DFA/src/DFAFile"));
         String line;
@@ -22,6 +24,7 @@ public class Main {
             System.out.println(line);
             readingFromFile.add(line);
         }
+
         System.out.println(readingFromFile.get(1));
         numberOfStates = readingFromFile.get(0);
         String acception = readingFromFile.get(1);
@@ -30,11 +33,13 @@ public class Main {
         System.out.println(acceptStates.get(0));
 
 
-        for(int i = 0; i < Integer.parseInt(numberOfStates); i++){
+        for(int i = 2; i < Integer.parseInt(numberOfStates); i++){
             //make the States objects
+            States state = new States(0,0,0);
+            statesWTransitions.add(state);
         }
 
-        //another for loop for adding the transitions
+
 
 
 
