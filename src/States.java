@@ -10,4 +10,8 @@ public class States {
         this.symbol = symbol;
         this.newState = newState;
     }
+
+    public String toString(){
+        return "oldState: " + oldState + " symbol: " + symbol + " newState: " + newState;
+    } // for testing purposes
 }
