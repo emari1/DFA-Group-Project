@@ -46,6 +46,18 @@ public class Main {
 //                States state = new States(0,0,0);
 //                statesWTransitions.add(state);
 //            }
+            for(int i = 2; i < readingFromFile.size(); i++){
+            // i = 2 ignores the first 2 lines of the file, rest of it is the states
+                String [] stateInfo = readingFromFile.get(i).split(" ");
+                // get the 3 integers (old, symbol, new)
+                States state = new States(
+                    Integer.parseInt(stateInfo[0]),
+                    Integer.parseInt(stateInfo[1]),
+                    Integer.parseInt(stateInfo[2])
+                );
+                // make the state object with the old symbol new in our array, then add it to arraylist
+                statesWTransitions.add(state);
+            }
 
         }
         else {
