@@ -19,7 +19,7 @@ public class Main {
         List<States> statesWTransitions = new ArrayList<>();
 
         String numberOfStates;
-        BufferedReader reader = new BufferedReader(new FileReader("/Users/kelvinokocha/DFA-Group-Project/src/DFAFile"));
+        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\owner\\IdeaProjects\\DFA-Group-Project\\src\\DFAFile"));
         String line;
         int whole=reader.read();
         System.out.println(whole);
@@ -58,6 +58,42 @@ public class Main {
                 );
                 // make the state object with the old symbol new in our array, then add it to arraylist
                 statesWTransitions.add(state);
+            }
+
+            int currentState = 1;
+            boolean validInput = true;
+
+            for (int i = 0; i < userInput.length(); i++) {
+                char c = userInput.charAt(i);
+                if (c != '0' && c != '1') {
+                    System.out.println("Invalid input: string must only contain 0s and 1s.");
+                    validInput = false;
+                    break;
+                }
+                int symbol = c - '0';
+                boolean transitionFound = false;
+
+                for (States st : statesWTransitions) {
+                    if (st.getOldState() == currentState && st.getSymbol() == symbol) {
+                        currentState = st.getNewState();
+                        transitionFound = true;
+                        break;
+                    }
+                }
+
+                if (!transitionFound) {
+                    System.out.println("No transition found from state " + currentState + " on symbol " + symbol);
+                    validInput = false;
+                    break;
+                }
+            }
+
+            if (validInput) {
+                if (acceptStates.contains(String.valueOf(currentState))) {
+                    System.out.println("ACCEPT");
+                } else {
+                    System.out.println("REJECT");
+                }
             }
 
             // for (States st : statesWTransitions) { test for states

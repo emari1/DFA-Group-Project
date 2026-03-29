@@ -11,6 +11,18 @@ public class States {
         this.newState = newState;
     }
 
+    public int getOldState(){
+        return oldState;
+    }
+
+    public int getSymbol() {
+        return symbol;
+    }
+
+    public int getNewState(){
+        return newState;
+    }
+
     public String toString(){
         return "oldState: " + oldState + " symbol: " + symbol + " newState: " + newState;
     } // for testing purposes
