@@ -19,7 +19,7 @@ public class Main {
         List<States> statesWTransitions = new ArrayList<>();
 
         String numberOfStates;
-        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\owner\\IdeaProjects\\DFA-Group-Project\\src\\DFAFile"));
+        BufferedReader reader = new BufferedReader(new FileReader("DFAFile"));
         String line;
         int whole=reader.read();
         System.out.println(whole);
