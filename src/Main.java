@@ -65,7 +65,7 @@ public class Main {
 
             for (int i = 0; i < userInput.length(); i++) {
                 char c = userInput.charAt(i);
-                if (c != '0' && c != '1' && c !- '-1') {
+                if (c != '0' && c != '1' && c != '-1') {
                     System.out.println("Invalid input: string must only contain 0s, 1s, and -1s.");
                     validInput = false;
                     break;
