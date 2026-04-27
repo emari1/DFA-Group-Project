@@ -24,6 +24,7 @@ public class States {
     }
 
     public String toString(){
-        return "oldState: " + oldState + " symbol: " + symbol + " newState: " + newState;
+        String symbol1 = (symbol == -1) ? "ε" : String.valueOf(symbol);
+        return "oldState: " + oldState + " symbol: " + symbol1 + " newState: " + newState;
     } // for testing purposes
 }

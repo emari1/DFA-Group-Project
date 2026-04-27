@@ -1,15 +1,42 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 //Elijah Mari, Maxwell Fadley, Kelvin Okocha, Edward Deensie
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+    //Computation of the epsilon-closure in a set of states.
+    public static Set<Integer> epsilonClosure(Set<Integer> states, List<States> transitions) {
+        Set<Integer> closure = new HashSet<>(states);
+        Deque<Integer> stack = new ArrayDeque<>(states);
+        while (!stack.isEmpty()) {
+            int currentState = stack.pop();
+            for (States s: transitions) {
+                if (s.getOldState() == currentState && s.getSymbol() == -1) {
+                    if (closure.add(s.getNewState())) {
+                        stack.push(s.getNewState());
+                    }
+                }
+            }
+        }
+        return closure;
+    }
+    //Given a set of current states and an input symbol,
+    //Method returns all states that are reachable via the input symbol before closure.
+    public static Set<Integer> move(Set<Integer> states, int symbol, List<States> transitions) {
+        Set<Integer> result = new HashSet<>();
+        for (int state : states) {
+            for (States s: transitions) {
+                if (s.getOldState() == state && s.getSymbol() == symbol) {
+                    result.add(s.getNewState());
+                }
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) throws IOException {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
@@ -19,7 +46,7 @@ public class Main {
         List<States> statesWTransitions = new ArrayList<>();
 
         String numberOfStates;
-        BufferedReader reader = new BufferedReader(new FileReader("DFAFile"));
+        BufferedReader reader = new BufferedReader(new FileReader("NFAFile"));
         String line;
         int whole=reader.read();
         System.out.println(whole);
@@ -60,40 +87,34 @@ public class Main {
                 statesWTransitions.add(state);
             }
 
-            int currentState = 1;
+
             boolean validInput = true;
+
+            Set<Integer> currentStates = epsilonClosure(Set.of(1), statesWTransitions);
 
             for (int i = 0; i < userInput.length(); i++) {
                 char c = userInput.charAt(i);
-                if (c != '0' && c != '1' && c != '-1') {
-                    System.out.println("Invalid input: string must only contain 0s, 1s, and -1s.");
+                if (c != '0' && c != '1') {
+                    System.out.println("Invalid input: string must only contain 0s and 1s.");
                     validInput = false;
                     break;
                 }
                 int symbol = c - '0';
-                boolean transitionFound = false;
 
-                for (States st : statesWTransitions) {
-                    if (st.getOldState() == currentState && st.getSymbol() == symbol) {
-                        currentState = st.getNewState();
-                        transitionFound = true;
-                        break;
-                    }
-                }
+                Set<Integer> moved = move(currentStates, symbol, statesWTransitions);
+                currentStates = epsilonClosure(moved, statesWTransitions);
 
-                if (!transitionFound) {
-                    System.out.println("No transition found from state " + currentState + " on symbol " + symbol);
-                    validInput = false;
-                    break;
-                }
             }
 
             if (validInput) {
-                if (acceptStates.contains(String.valueOf(currentState))) {
-                    System.out.println("ACCEPT");
-                } else {
-                    System.out.println("REJECT");
+                boolean accepted = false;
+                for (int state : currentStates) {
+                    if (acceptStates.contains(String.valueOf(state))) {
+                        accepted = true;
+                        break;
+                    }
                 }
+                System.out.println(accepted ? "ACCEPT" : "REJECT");
             }
 
             // for (States st : statesWTransitions) { test for states
